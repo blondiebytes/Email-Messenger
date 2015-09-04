@@ -60,13 +60,19 @@ public class EmailClient {
             
                 System.out.println("If you would like to send a message, enter S. "
                         + "If you would like to read your messages, enter R");
-                if ("S".equals(userEntry.readLine())) {
+                String entry = userEntry.readLine();
+                while (!entry.equals("S") && !entry.equals("R")) {
+                    System.out.println("Try again. If you would like to send a message, enter S. "
+                        + "If you would like to read your messages, enter R");
+                    entry = userEntry.readLine();
+                }
+                if ("S".equals(entry)) {
                     // send
                         doSend();
-                        System.out.println("You've already sent 10 messages");
-                    }
-                else {
+                }
+                else if ("R".equals(entry)){
                   // read
+                    System.out.println();
                     doRead();
                }
         } catch (IOException ioEx) {
