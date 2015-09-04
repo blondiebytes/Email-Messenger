@@ -58,7 +58,7 @@ public class EmailClient {
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             // How user enters data
             
-                System.out.print("If you would like to send a message, enter S. "
+                System.out.println("If you would like to send a message, enter S. "
                         + "If you would like to read your messages, enter R");
                 if ("S".equals(userEntry.readLine())) {
                     // send
@@ -81,7 +81,7 @@ public class EmailClient {
             }
         }
           // Check if the user wants to do another send or read...
-          System.out.print("Do you want to do another send or read? If you"
+          System.out.println("Do you want to do another send or read? If you"
                         + " do not want to, then enter n, otherwise enter any "
                         + "other key.");
          option = userEntry.readLine();
