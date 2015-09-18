@@ -40,9 +40,12 @@ public class ChatClient extends JFrame  implements ActionListener {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         
-        while(true) {
-           frame.readMessage();
+        // while we go..
+        while(frame.isVisible()) {
+            frame.readMessage();
         }
+        
+       frame.dispose();
         
     }
 
@@ -90,6 +93,8 @@ public class ChatClient extends JFrame  implements ActionListener {
                 try {
                     System.out.println("Closing connection...");
                     socket.close();
+                    System.out.println("Closed connection");
+                    frame.setVisible(false); //you can't see me!
                 } catch (IOException ioEx) {
                     System.out.println("Unable to disconnect!");
                     System.exit(1);
