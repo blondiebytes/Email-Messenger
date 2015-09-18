@@ -28,7 +28,7 @@ public class ClientHandler extends Thread {
         try {
             networkInput =  new Scanner(client.getInputStream());
             networkOutput = new PrintWriter(client.getOutputStream(), true);
-             outputStreams.add(networkOutput);
+            outputStreams.add(networkOutput);
         } catch (IOException ioEx) {
             ioEx.printStackTrace();
         }

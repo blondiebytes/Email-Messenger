@@ -113,6 +113,7 @@ public class ChatClient extends JFrame  implements ActionListener {
             networkOutput = new PrintWriter(socket.getOutputStream(), true);
             // send out the name!
             message = name;
+            sendMessage();
          } catch (IOException ioEx) {
             ioEx.printStackTrace();
         }
@@ -129,6 +130,7 @@ public class ChatClient extends JFrame  implements ActionListener {
         if (!response.isEmpty()) {
             // appending to the chat area
             chatArea.append(response);
+            chatArea.append("\n");
         }
     }
 
