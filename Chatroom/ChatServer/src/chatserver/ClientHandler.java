@@ -47,16 +47,25 @@ public class ClientHandler extends Thread {
         enterChatroom();
         
         // Continue chatroom!
+        String originalMessage;
         String received;
         do {
            // get a message
-            received = name + ": " + read();
+            originalMessage = read();
             // add a name to the front
-            // send it out to everyone
-            sendOut(received);
+            received = name + ": " + originalMessage;
+            
+            
+            // BLAH repetitive code... maybe fix later?
+            
+            // If it isn't over...
+            if (!originalMessage.equals("BYE")) {
+                // send it out to everyone
+                sendOut(received);
+            }
 
         //Repeat above until 'QUIT' sent by client...
-        } while (!received.equals("BYE"));
+        } while (!originalMessage.equals("BYE"));
         
         // Kick them out of the chatroom
         try {
@@ -74,7 +83,7 @@ public class ClientHandler extends Thread {
     }
     
     private void enterChatroom() {
-        String helloChatter = name + " has entered the chat room";
+        String helloChatter = name + " has entered the chat room.";
         System.out.println("About to get in!");
         sendOut(helloChatter);
         System.out.println("In the chatroom");

@@ -91,8 +91,9 @@ public class ChatClient extends JFrame  implements ActionListener {
             message = messageArea.getText();
             System.out.println("User typed message: " + message);
             messageArea.setText(""); 
+            sendMessage();
+            // Code to close connection if user typed "Bye".
             if (message.equals("BYE")) {
-                // Code to close connection if user typed "Bye".
                 try {
                     System.out.println("Closing connection...");
                     isSocketClosed = true;
@@ -102,9 +103,6 @@ public class ChatClient extends JFrame  implements ActionListener {
                     System.out.println("Unable to disconnect!");
                     System.exit(1);
                 }
-            } else {
-                // Code to send any other message to the server.
-                sendMessage();
             }
         }
     }
