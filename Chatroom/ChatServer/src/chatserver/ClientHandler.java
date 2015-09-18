@@ -57,12 +57,14 @@ public class ClientHandler extends Thread {
 
         //Repeat above until 'QUIT' sent by client...
         } while (!received.equals("BYE"));
-
+        
+        // Kick them out of the chatroom
         try {
             if (client != null) {
-                System.out.println("Closing down connection...");
                 // remove it from our output streams array
                 outputStreams.remove(networkOutput);
+               sendOut(name + " has left the chatroom.");
+                System.out.println("Closing down connection...");
                 // close the socket
                 client.close();
             }
@@ -87,8 +89,8 @@ public class ClientHandler extends Thread {
     }
     
     private String read() {
-         System.out.println("Read input!");
-        return networkInput.nextLine();
+       System.out.println("Read input!");
+       return networkInput.nextLine();
     }
     
 }

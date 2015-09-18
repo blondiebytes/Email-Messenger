@@ -13,9 +13,10 @@ public class ChatClient extends JFrame  implements ActionListener {
     private static InetAddress host;
     private static final int PORT = 52946;
     private static Socket socket;
-    private static BufferedReader networkInput;
+    private static Scanner networkInput;
     private static PrintWriter networkOutput;
     private String name;
+    private boolean isSocketClosed = false;
     
     
     // UI
@@ -90,13 +91,13 @@ public class ChatClient extends JFrame  implements ActionListener {
             message = messageArea.getText();
             System.out.println("User typed message: " + message);
             messageArea.setText(""); 
-            if (message.equals("Bye")) {
+            if (message.equals("BYE")) {
                 // Code to close connection if user typed "Bye".
                 try {
                     System.out.println("Closing connection...");
-                    socket.close();
-                    System.out.println("Closed connection");
+                    isSocketClosed = true;
                     frame.setVisible(false); //you can't see me!
+                    socket.close();
                 } catch (IOException ioEx) {
                     System.out.println("Unable to disconnect!");
                     System.exit(1);
@@ -116,7 +117,7 @@ public class ChatClient extends JFrame  implements ActionListener {
              // Making a socket
             socket = new Socket(host, PORT);
             // Setting up I/O Streams
-            networkInput = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            networkInput = new Scanner(socket.getInputStream());
             networkOutput = new PrintWriter(socket.getOutputStream(), true);
             // send out the name!
             message = name;
@@ -133,11 +134,13 @@ public class ChatClient extends JFrame  implements ActionListener {
     
     public void readMessage() throws IOException {
         // getting a response
-        String response = networkInput.readLine();
-        if (!response.isEmpty()) {
-            // appending to the chat area
-            chatArea.append(response);
-            chatArea.append("\n");
+        if (!isSocketClosed) {
+            String response = networkInput.nextLine();
+            if (!response.isEmpty()) {
+                // appending to the chat area
+             chatArea.append(response);
+             chatArea.append("\n");
+             }
         }
     }
 
