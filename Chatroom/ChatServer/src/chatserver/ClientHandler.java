@@ -61,6 +61,9 @@ public class ClientHandler extends Thread {
         try {
             if (client != null) {
                 System.out.println("Closing down connection...");
+                // remove it from our output streams array
+                outputStreams.remove(networkOutput);
+                // close the socket
                 client.close();
             }
         } catch (IOException ioEx) {

@@ -33,18 +33,22 @@ public class ChatClient extends JFrame  implements ActionListener {
             System.exit(1);
         }
         
+        // Create a new client
         frame = new ChatClient();
+        // set up the streams
         frame.setUpStreams();
+        // set UI
         frame.setTitle("A Simple Chat Client");
         frame.setSize(400, 500);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         
-        // while we go..
+        // While our frame is visible, then we can read stuff
         while(frame.isVisible()) {
             frame.readMessage();
         }
-        
+        // If it isn't visible anymore, we have disconnected so
+        // we stop reading and dispose the frame
        frame.dispose();
         
     }
@@ -52,6 +56,7 @@ public class ChatClient extends JFrame  implements ActionListener {
 
 
     public ChatClient() throws IOException{
+        // Set up the view
         chatArea = new JTextArea(20, 50);
         chatArea.setWrapStyleWord(true);
         chatArea.setLineWrap(true);
@@ -70,16 +75,13 @@ public class ChatClient extends JFrame  implements ActionListener {
         sendPanel.add(sendButton, BorderLayout.EAST);
         add(sendPanel, BorderLayout.SOUTH);
 
+        // Enter your name
         name = JOptionPane.showInputDialog(frame,
                                                     "Enter Your Nickname: ",
                                                     "Name Entry",
                                                     JOptionPane.PLAIN_MESSAGE);
         System.out.println("User name dialog input was: " + name);
         
-       // Code to connect with server and set up client
-        // thread for receiving and displaying messages
-        // from server.
-        setUpStreams();
     }
 
     public void actionPerformed(ActionEvent event) {
