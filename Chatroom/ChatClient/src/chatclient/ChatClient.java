@@ -13,9 +13,9 @@ public class ChatClient extends JFrame  implements ActionListener {
     private static InetAddress host;
     private static final int PORT = 52946;
     private static Socket socket;
-    private static Scanner networkInput;
+    private static BufferedReader networkInput;
     private static PrintWriter networkOutput;
-    
+    private String name;
     
     
     // UI
@@ -25,7 +25,7 @@ public class ChatClient extends JFrame  implements ActionListener {
     private JButton sendButton;
     private String message = "";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
         try {
             host = InetAddress.getLocalHost();
         } catch (UnknownHostException uhEx) {
@@ -48,7 +48,7 @@ public class ChatClient extends JFrame  implements ActionListener {
 
 
 
-    public ChatClient() {
+    public ChatClient() throws IOException{
         chatArea = new JTextArea(20, 50);
         chatArea.setWrapStyleWord(true);
         chatArea.setLineWrap(true);
@@ -67,12 +67,12 @@ public class ChatClient extends JFrame  implements ActionListener {
         sendPanel.add(sendButton, BorderLayout.EAST);
         add(sendPanel, BorderLayout.SOUTH);
 
-        String handle = JOptionPane.showInputDialog(frame,
+        name = JOptionPane.showInputDialog(frame,
                                                     "Enter Your Nickname: ",
                                                     "Name Entry",
                                                     JOptionPane.PLAIN_MESSAGE);
-        System.out.println("User name dialog input was: " + handle);
-
+        System.out.println("User name dialog input was: " + name);
+        
        // Code to connect with server and set up client
         // thread for receiving and displaying messages
         // from server.
@@ -104,25 +104,15 @@ public class ChatClient extends JFrame  implements ActionListener {
     // Code to connect with server and set up client
     // thread for receiving and displaying messages
     // from server.
-    public void setUpStreams() {
+    public void setUpStreams() throws IOException{
          try {
              // Making a socket
             socket = new Socket(host, PORT);
             // Setting up I/O Streams
-            networkInput = new Scanner(socket.getInputStream());
+            networkInput = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             networkOutput = new PrintWriter(socket.getOutputStream(), true);
-            
-            // Let's get some chat messages!
-//             String message, response;
-//            do {
-//                System.out.print("Enter message ('QUIT' to exit): ");
-//                message = userEntry.nextLine();
-//                networkOutput.println(message);
-//                response = networkInput.nextLine();
-//                System.out.println("SERVER> " + response);
-//            } while (!message.equals("QUIT"));
-            
-            
+            // send out the name!
+            message = name;
          } catch (IOException ioEx) {
             ioEx.printStackTrace();
         }
@@ -133,9 +123,9 @@ public class ChatClient extends JFrame  implements ActionListener {
         networkOutput.println(message);
     }
     
-    public void readMessage() {
+    public void readMessage() throws IOException {
         // getting a response
-        String response = networkInput.nextLine();
+        String response = networkInput.readLine();
         if (!response.isEmpty()) {
             // appending to the chat area
             chatArea.append(response);
