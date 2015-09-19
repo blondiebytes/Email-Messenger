@@ -54,25 +54,19 @@ public class ClientHandler extends Thread {
             originalMessage = read();
             // add a name to the front
             received = name + ": " + originalMessage;
+            // send it out to everyone
+            sendOut(received);
             
-            
-            // BLAH repetitive code... maybe fix later?
-            
-            // If it isn't over...
-            if (!originalMessage.equals("BYE")) {
-                // send it out to everyone
-                sendOut(received);
-            }
 
         //Repeat above until 'QUIT' sent by client...
-        } while (!originalMessage.equals("BYE"));
+        } while (!originalMessage.equals("Bye"));
         
         // Kick them out of the chatroom
         try {
             if (client != null) {
                 // remove it from our output streams array
                 outputStreams.remove(networkOutput);
-               sendOut(name + " has left the chatroom.");
+               sendOut(name + " has left the chat room.");
                 System.out.println("Closing down connection...");
                 // close the socket
                 client.close();

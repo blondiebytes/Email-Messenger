@@ -93,7 +93,7 @@ public class ChatClient extends JFrame  implements ActionListener {
             messageArea.setText(""); 
             sendMessage();
             // Code to close connection if user typed "Bye".
-            if (message.equals("BYE")) {
+            if (message.equals("Bye")) {
                 try {
                     System.out.println("Closing connection...");
                     isSocketClosed = true;
