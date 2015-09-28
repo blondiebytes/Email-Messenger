@@ -1,3 +1,3 @@
-# Email-Messaging
+# Email-Messenger
 A program that allows to two computers (or two windows on the same computer) to send messages to each other (like email). 
 To run, create two instances of the EmailClient and one instance of the EmailServer. If you want two computers to send messages to each other, in the EmailClient file, you must change the field host to InetAddress.getAddressByName("Put-IP-Address-Here") instead of InetAddress.getLocalHost(); To find the IP address of a computer, you can type ifconfig in the command line and find the line that says inet and copy down the IP address. An example of an IP address would be 194.66.82.11, so it should look like that. For messaging to work between computers (i.e. running the EmailClient on both computers), both instances of the EmailClient must have the same host.
