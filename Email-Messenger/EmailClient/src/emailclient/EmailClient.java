@@ -34,16 +34,6 @@ public class EmailClient {
         run();
     }
 
-    /**
-     * ******************************************************
-     *
-     * CREATE A SOCKET, SET UP INPUT AND OUTPUT STREAMS, ACCEPT THE USER'S
-     * REQUEST, CALL UP THE APPROPRIATE METHOD (doSend OR doRead), CLOSE THE
-     * LINK AND THEN ASK IF USER WANTS TO DO ANOTHER READ/SEND.
-     *
-     *
-     *******************************************************
-     */
     private static void run() throws IOException {
         String option, message, response;
         Socket clientSocket = null;
@@ -103,12 +93,7 @@ public class EmailClient {
         out.println(message);
     }
 
-    
-    
-   /**
-         * *******************************
-         * BODY OF THIS METHOD REQUIRED *******************************
-         */
+
     private static void doRead() throws IOException {
         out.println(name);
         out.println("read");
